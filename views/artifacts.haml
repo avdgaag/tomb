@@ -1,0 +1,9 @@
+%h2 All artifacts
+%ol
+  - store.builds.each do |build, artifacts|
+    %li
+      %h3= build
+      %ul
+        - artifacts.each do |dir|
+          %li
+            %a{ href: url("/artifacts/#{build}/#{dir}") }= dir

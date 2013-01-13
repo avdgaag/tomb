@@ -6,5 +6,14 @@
     %link{ rel: 'stylesheet', href: '/styles.css' }
   %body
     #page
+      #header
+        %h1 Tomb
+        - if authenticated?
+          Logged in as
+          %strong= current_user.username
+          (#{current_user.api_token})
+          %a{ href: url('/logout') } Log out
+        - else
+          %a{ href: url('artifacts') } Log in
       = yield
     %script{ src: '/lib.js ' }
