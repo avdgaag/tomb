@@ -1,1 +1,16 @@
-%h2 Hello, world
+:markdown
+  ## What is Tomb?
+
+  Tomb is a simple repository of CI build artifacts. Log in with your Github
+  account to access your team's files.
+
+  ## How do I set it up?
+
+  Point your CI server to POST archives of build artifacts to Tomb in
+  gzipped tar format (.tgz). For example:
+
+      $ tar cz my_artifacts | curl -F 'archive=@-' \
+        http://tomb.io/artifacts
+
+%form{ method: 'get', action: url('/artifacts') }
+  %button{ type: 'submit' } Log in with Github

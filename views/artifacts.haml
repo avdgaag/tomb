@@ -1,9 +1,12 @@
 %h2 All artifacts
-%ol
-  - store.builds.each do |build, artifacts|
-    %li
-      %h3= build
-      %ul
-        - artifacts.each do |dir|
-          %li
-            %a{ href: url("/artifacts/#{build}/#{dir}") }= dir
+- if store.builds.any?
+  %ol
+    - store.builds.each do |build, artifacts|
+      %li
+        %h3 Build #{build}
+        %ul
+          - artifacts.each do |dir|
+            %li
+              %a{ href: url("/artifacts/#{build}/#{dir}") }= dir
+- else
+  %p Nothing found. Have you set up your CI server to post artifacts to Tomb yet?

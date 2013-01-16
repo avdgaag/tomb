@@ -9,11 +9,10 @@
       #header
         %h1 Tomb
         - if authenticated?
-          Logged in as
-          %strong= current_user.username
-          (#{current_user.api_token})
-          %a{ href: url('/logout') } Log out
-        - else
-          %a{ href: url('artifacts') } Log in
+          #auth
+            Logged in as
+            %strong= current_user.username
+            (#{current_user.api_token})
+            %a{ href: url('/logout') } Log out
       = yield
     %script{ src: '/lib.js ' }

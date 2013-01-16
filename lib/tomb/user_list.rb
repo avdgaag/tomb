@@ -2,24 +2,27 @@ module Tomb
   class UserList
     User = Struct.new(:username, :api_token)
 
-    attr_reader :store
+    include Enumerable
 
-    def initialize(filename)
-      @store = YAML::Store.new(filename)
+    extend Forwardable
+    def_delegators :users, :size, :empty?, :each
+
+    def initialize(store_path)
+      @store = YAML::Store.new(store_path)
     end
 
-    def add_user(username)
-      return if find_by_username(username)
-      user = User.new(username, generate_token)
+    def users
+      store.transaction { store.fetch('users', []) }
+    end
+
+    def push(username)
+      return self if find_by_username(username)
       store.transaction do
-        store['users'] ||= []
-        store['users'] << user
+        (store['users'] ||= []) << User.new(username, SecureRandom.hex)
       end
+      self
     end
-
-    def api_token(username)
-      find_by_username(username).api_token
-    end
+    alias_method :<<, :push
 
     def find_by_username(username)
       users.find { |u| u.username == username }
@@ -29,12 +32,10 @@ module Tomb
       users.find { |u| u.api_token == api_token }
     end
 
-    def users
-      store.transaction { store['users'] } || []
-    end
+    private
 
-    def generate_token
-      'foobar'
+    def store
+      @store
     end
   end
 end

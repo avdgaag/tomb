@@ -1,1 +1,68 @@
-@import 'bourbon';
+body {
+  background-color: #f9f9f9;
+  font: 12px/18px sans-serif;
+}
+
+#page {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 40px;
+  width: 450px;
+  margin: 40px auto;
+}
+
+h1 {
+  font-weight: bold;
+  margin: 0;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+h2 {
+  font: 18px/18px Georgia, serif;
+  margin: 18px 0;
+}
+
+p {
+  margin: 18px 0;
+}
+
+button {
+  display: block;
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 9px 20px;
+  font-size: 18px 0;
+  margin: 36px auto 0;
+  background-color: #888;
+  color: #eee;
+  font-weight: bold;
+}
+
+#auth {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  line-height: 36px;
+  text-align: right;
+  color: #999;
+  font-size: 10px;
+}
+
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 120px;
+
+  h3 {
+    float: left;
+    width: 50px;
+    margin: 0 0 0 -120px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+}

@@ -1,7 +1,5 @@
 module Tomb
   class Store
-    FileNotFound = Class.new(StandardError)
-
     attr_reader :root_path
 
     def initialize(root_path)
@@ -17,9 +15,7 @@ module Tomb
     end
 
     def read_file(path)
-      path = root_path.join(path)
-      raise FileNotFound, path unless File.exist?(path)
-      File.read(path)
+      File.read(root_path.join(path))
     end
 
     def builds

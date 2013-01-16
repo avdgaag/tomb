@@ -1,0 +1,5 @@
+---
+users:
+- !ruby/struct:Tomb::UserList::User
+  username: John
+  api_token: foobar

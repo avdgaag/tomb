@@ -2,6 +2,7 @@ module Tomb
   class App < Sinatra::Base
     set :haml, format: :html5
     set :scss, style: :compressed
+    set :root, File.expand_path(File.join('..', '..', '..'), __FILE__)
 
     configure :production, :development do
       enable :logging
@@ -9,8 +10,8 @@ module Tomb
     end
 
     configure :production do
-      set :raise_errors,    false
-      set :show_exceptions, false
+      disable :raise_errors
+      disable :show_exceptions
     end
 
     register Sinatra::Auth::Github
@@ -26,7 +27,7 @@ module Tomb
 
       def authenticate_and_register
         github_organization_authenticate!(settings.github_options.fetch(:organization))
-        user_list.add_user github_user.login
+        user_list << github_user.login
       end
 
       def authenticate_by_token
@@ -74,6 +75,14 @@ module Tomb
       redirect to(File.join(request.path, 'index.html'))
     end
 
+    error Errno::ENOENT do
+      halt 404
+    end
+
+    not_found do
+      '404 File not found'
+    end
+
     # Accepts a single gzipped archive containing artifacts files.
     #
     # Params:
@@ -93,6 +102,9 @@ module Tomb
 
     # Browse static build artifact files
     get '/artifacts/*' do
+      path = params[:splat].first
+      content_type 'text/css'        if path =~ /css$/
+      content_type 'text/javascript' if path =~ /js$/
       store.read_file(File.join(*params[:splat]))
     end
 
