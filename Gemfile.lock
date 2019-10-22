@@ -17,7 +17,9 @@ GEM
       faraday (>= 0.7.4, < 0.9)
     foreman (0.60.2)
       thor (>= 0.13.6)
-    haml (3.1.7)
+    haml (5.0.0)
+      temple (>= 0.8.0)
+      tilt
     hashie (1.2.0)
     json (1.7.6)
     mime-types (1.19)
@@ -57,6 +59,7 @@ GEM
     sinatra_auth_github (0.12.0)
       sinatra (~> 1.0)
       warden-github (~> 0.12.0)
+    temple (0.8.2)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
